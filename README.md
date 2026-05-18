@@ -379,6 +379,167 @@ flowchart LR
     style L1 fill:#dff0d8,stroke:#3c763d,stroke-width:3px
 ```
 
+# Presentation Visuals
+
+Here are the upgraded, PowerPoint-optimized **widescreen (16:9)** Mermaid diagrams. These have been designed with a horizontal left-to-right flow (`flowchart LR`) or balanced split grids so they fit beautifully on slide templates without looking squished or requiring vertical scrolling.
+
+---
+
+## Slide 1: Technical Challenges Overview
+A left-to-right split architecture showcasing the two parallel pillars of your system connected to a shared database.
+
+```mermaid
+flowchart LR
+    subgraph Storage_Pipeline["Solution Storage Pipeline (Left Wing)"]
+        A([Voice / Text Input]) --> B[Whisper STT Decoder]
+        B --> C[Two-Pass Extraction Engine]
+        C --> D[Admin Review Queue]
+    end
+
+    subgraph Knowledge_Base["Knowledge Base (Center DB)"]
+        E[(Verified Solutions & manuals)]
+    end
+
+    subgraph Chat_Agent["Conversational Chatbot (Right Wing)"]
+        F([Operator Query]) --> G[Agent Reasoning]
+        G --> H{Confidence Scorer}
+        H --> I[Technical Answer / Fallback]
+    end
+
+    D -->|Supervisor Approved| E
+    E -.->|RAG Retrieval| G
+    
+    style Storage_Pipeline fill:#f4f4f4,stroke:#333,stroke-width:2px
+    style Knowledge_Base fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
+    style Chat_Agent fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+```
+
+---
+
+## Slide 2: Challenge 1 - Solution Storage & Extraction Pipeline
+This widescreen diagram illustrates the three development stages of our extraction system, using only the exact terminology from your text.
+
+```mermaid
+flowchart LR
+    subgraph Evolution["Development Evolution of the Extraction Engine"]
+        direction LR
+        
+        subgraph Stage_1["Stage 1: Python library Spacy"]
+            A[Identified machines and components well] -->|Failed to capture| B("Complex operator actions")
+        end
+        
+        subgraph Stage_2["Stage 2: LLM information extraction"]
+            C[LLM extraction] -->|Struggled to map| D("Unstructured text into 9 distinct components")
+            C -->|Couldn't separate| E("Actual fix from passive diagnostic steps")
+        end
+        
+        subgraph Stage_3["Stage 3: Two-Pass Extraction"]
+            F[First pass: Custom vector embedding database of all machine manuals] -->|Constructs| G[Chronological timeline of events]
+            G --> H[Second pass: Structured into formal JSON format]
+            H --> I[(Human in the loop review: Pending state verified by supervisor)]
+        end
+    end
+    
+    Stage_1 -.->|To improve we switched to| Stage_2
+    Stage_2 -.->|We solved this by| Stage_3
+    
+    style Stage_1 fill:#f9d5d5,stroke:#a94442,stroke-width:2px
+    style Stage_2 fill:#fcf8e3,stroke:#8a6d3b,stroke-width:2px
+    style Stage_3 fill:#dff0d8,stroke:#3c763d,stroke-width:3px
+```
+
+---
+
+## Slide 3: Challenge 2 - Dialect & Semantic Similarity
+This simplified, widescreen diagram illustrates how different operator dialects are matched, comparing the parallel Sentence Transformers and Two-Pass Dictionary paths using only your keyword terms.
+
+```mermaid
+flowchart LR
+    A["Operator A: Swapped container of buggy"] --> C[Sentence Transformers]
+    B["Operator B: Replaced buggy container"] --> C
+    
+    A --> D[Two-Pass Dictionary]
+    B --> D
+    
+    C -->|Synonyms & Dialects| H["Accurate Similarity Match (No Noise)"]
+    D -->|Mapped Actions| H
+    
+    C -.->|Weakness| E(Score Drops on Different Sentence Structures)
+    D -.->|Weakness| F(Misses New Slang Words)
+    
+    style C fill:#e3f2fd,stroke:#1565c0,stroke-width:1px
+    style D fill:#fffacd,stroke:#8a6d3b,stroke-width:1px
+    style H fill:#dff0d8,stroke:#3c763d,stroke-width:2px
+```
+
+---
+
+## Slide 4: Challenge 3 - RAG & Agentic Tool Use
+A hub-and-spoke layout showing the AI Agent dynamically choosing between tools to construct a clean context.
+
+```mermaid
+flowchart LR
+    A([User Query]) --> B[Chatbot Agent Reasoning]
+    
+    subgraph Tool_Chest["Dynamic Tool Dispatcher"]
+        B -->|Tool Choice 1| C[[RAG Search]]
+        B -->|Tool Choice 2| D[[System Log Fetcher]]
+        B -->|Tool Choice 3| E[[Deeper Thinking Mode]]
+    end
+    
+    C --> F[(PDF Manuals & Solutions)]
+    D --> G[(Live Machine logs)]
+    E --> H[Multi-Step Diagnostic logic]
+    
+    F & G & H --> I[Context Synthesizer]
+    I --> J[Proceed to Confidence Engine]
+    
+    style Tool_Chest fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+```
+
+---
+
+## Slide 5: Challenge 4 - Chatbot Confidence & Fallbacks
+A horizontal flow diagram showing how you avoid false refusals and decouple global history to eliminate ghost confidence.
+
+```mermaid
+flowchart LR
+    A[RAG Context + Current Query] -->|Decoupled from Global History| B{Confidence Scorer}
+    
+    B -->|Confidence >= 25%| C[High Confidence response]
+    B -->|Confidence < 25%| D{Low Confidence Analyzer}
+    
+    C --> E[Output Technical Answer]
+    
+    D -->|Off-Topic Query| F[Block & Refuse]
+    D -->|Valid but Vague Query| G[Domain-Specific Fallback: Ask for context]
+    
+    G -.->|User Refines Query| A
+    
+    style B fill:#f96,stroke:#333,stroke-width:3px
+    style G fill:#fffacd,stroke:#8a6d3b,stroke-width:2px
+    style F fill:#f99,stroke:#a94442,stroke-width:2px
+```
+
+---
+
+## Slide 6: Top 5 Lessons Learned
+A horizontal countdown sequence showing how your lessons flow together to build a robust system.
+
+```mermaid
+flowchart LR
+    subgraph Lessons["Top 5 Lessons Learned (Countdown Sequence)"]
+        L5["5. Messy Data (Jargon Priming)"] -->
+        L4["4. Human review Guardrails"] -->
+        L3["3. Graceful degradation Fallbacks"] -->
+        L2["2. Hybrid beats Pure AI"] -->
+        L1["1. Context is King (Decoupling)"]
+    end
+    
+    style Lessons fill:#fafafa,stroke:#333,stroke-width:2px
+    style L1 fill:#dff0d8,stroke:#3c763d,stroke-width:3px
+```
+
 
 
 
