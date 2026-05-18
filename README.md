@@ -67,8 +67,32 @@ Here are the upgraded, PowerPoint-optimized **widescreen (16:9)** Mermaid diagra
 ---
 
 ## Slide 1: Technical Challenges Overview
-<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/c219f1fb-4160-43ac-9349-bae75a5a1cea" />
+A left-to-right split architecture showcasing the two parallel pillars of your system connected to a shared database.
 
+```mermaid
+flowchart LR
+    subgraph Storage_Pipeline["Solution Storage Pipeline (Left Wing)"]
+        A([Voice / Text Input]) --> B[Whisper STT Decoder]
+        B --> C[Two-Pass Extraction Engine]
+        C --> D[Admin Review Queue]
+    end
+
+    subgraph Knowledge_Base["Knowledge Base (Center DB)"]
+        E[(Verified Solutions & manuals)]
+    end
+
+    subgraph Chat_Agent["Conversational Chatbot (Right Wing)"]
+        F([Operator Query]) --> G[Agent Reasoning]
+        G --> H{Confidence Scorer}
+        H --> I[Technical Answer / Fallback]
+    end
+
+    D -->|Supervisor Approved| E
+    E -.->|RAG Retrieval| G
+    
+    style Storage_Pipeline fill:#f4f4f4,stroke:#333,stroke-width:2px
+    style Knowledge_Base fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
+    style Chat_Agent fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
 ```
 
 ---
@@ -188,7 +212,6 @@ flowchart LR
     style Lessons fill:#fafafa,stroke:#333,stroke-width:2px
     style L1 fill:#dff0d8,stroke:#3c763d,stroke-width:3px
 ```
-
 
 
 
