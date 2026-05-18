@@ -1,4 +1,5 @@
 # Technical Challenges Presentation Draft
+<img width="2762" height="2467" alt="image" src="https://github.com/user-attachments/assets/2009bb14-55b0-4aef-997f-39cf219141cc" />
 
 ## Slide 1: Technical challenges
 **Visual Suggestion:** A high-level schematic showing the two main pillars of the system: The **Solution Storage Pipeline** on the left (with icons for voice/text input flowing into a database) and the **Industrial Chatbot** on the right (with an icon of an operator interacting with the AI).
