@@ -4,7 +4,7 @@
 **Visual Suggestion:** A high-level schematic showing the two main pillars of the system: The **Solution Storage Pipeline** on the left (with icons for voice/text input flowing into a database) and the **Industrial Chatbot** on the right (with an icon of an operator interacting with the AI).
 
 **Spoken Text:**
-"Hi everyone. Today I'm going to walk you through the technical engine room of our project. While the user interface makes the process look seamless, there’s a lot of complexity under the hood. Specifically, I want to talk about the technical challenges we faced when building the two core components: the Solution Storage system and the Conversational Chatbot, and how we engineered our way around them."
+"Now I'm going to walk you through the technical challenges of our project. While the user interface makes the process look seamless, there’s a lot of complexity under the hood. Specifically, I want to talk about the technical challenges we faced when building the two core components: the Solution Storage system and the Conversational Chatbot, and how we engineered our way around them. Afterwards Senne and Alejandro will go through the technical challenges of the preventive maintenance and the database." 
 
 ---
 
@@ -18,9 +18,9 @@
 **Spoken Text:**
 "Let's start with Solution Storage. The platform provides basic data storage, but our challenge was getting *clean, actionable* data into it. Operators might submit solutions via voice or messy text. 
 
-The biggest difficulty was extracting the exact entities and steps reliably without losing context. We initially faced issues with the AI failing to parse data correctly, leading to serialization crashes and lost information. To solve this, we implemented a 'Two-Pass Extraction' logic. The first pass captures the raw transcribed text to preserve the original intent, and the second pass structurizes it into a formal JSON format. 
+The biggest difficulty was extracting the exact components and steps reliably without losing context. This component went through a lot of different stages. Initally we used a python library for industrial settings to extract the necessary information, which sounded perfect for what we wanted to do. But this ultimately was scrapped because even though it could identify components and machines well, it struggled with extracting different actions that were taken. To improve this we switched over to LLM information extraction, which worked quite well for quite a while. But after testing we noticed that this LLM often struggled with identifying the actual root cause of the issue and it especially struggled in differentiating between the actions that were taken that actually solved the problem and just diagnostic steps that the operator took (for example: I checked this sensor, but it was fine) that weren't the actual fix. To solve this, we implemented a 'Two-Pass Extraction' logic. Since it is really difficult for an LLM to summarize an unstructured text into 9 different components, we split the information extraction up into 2 different parts. The first pass captures the raw transcribed text and queries the vector embedding database we created based on all machine manuals to construct a true chronological timeline of events. Here we filter out diagnostic noise to really capture what was done. Then in the second pass everything gets structurized into a formal JSON format that clearly captures everything that was done on which components. This also gets paired with 3D models and images of machine parts that can get added to the solution for extra information.
 
-Another challenge was data integrity. We couldn't just dump AI-extracted solutions directly into the database. We mitigated this by building a 'Human-in-the-Loop' review workflow, where solutions are temporarily held in a pending state until an admin verifies them in the UI."
+Lastly, because we couldn't just dump AI-extracted solutions directly into the database since this would become very unstructured very fast. We also built a human in the loop review workflow. , where solutions are temporarily held in a pending state until they get verified by an supervisor."
 
 ---
 
@@ -29,8 +29,7 @@ Another challenge was data integrity. We couldn't just dump AI-extracted solutio
 User Query -> Log Retrieval -> Confidence Scorer -> Decision Split (High Confidence vs. Low Confidence Fallback).
 
 **Spoken Text:**
-"Moving over to the Chatbot, the main difficulty wasn't getting the AI to talk—it was getting it to know when it *didn't* know the answer. 
-
+"Moving over to the Chatbot, the main technical difficulty here was that it isn't just a static conversational model. It acts as an intelligent agent. To ensure accuracy and to prevent AI hallucinations, we built a robust RAG pipeline.
 Early on, our chatbot would sometimes confidently give wrong answers, or conversely, refuse to answer valid technical questions, claiming they were 'out of scope' just because it had low confidence. 
 
 We solved this by engineering a custom Confidence Scoring system. Instead of generic refusals, we built a domain-specific fallback. If the chatbot's confidence score drops below 25%, it doesn't just give up; it systematically asks the operator for more specific machine context. We also had to heavily optimize our log retrieval mechanism so the chatbot prioritized recent 'Errors' over generic 'Warnings', ensuring it was always reasoning over the most critical, up-to-date data."
