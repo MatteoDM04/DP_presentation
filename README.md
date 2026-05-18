@@ -111,7 +111,7 @@ flowchart LR
     end
     
     E --> F[Pending Review Queue]
-    F -->|Supervisor Approved| G[(Main Database + 3D Models / Images)]
+    F -->|Supervisor Approved| G[Main Database ]
     
     style Two_Pass fill:#fffacd,stroke:#8a6d3b,stroke-width:2px
     style G fill:#dff0d8,stroke:#3c763d,stroke-width:2px
