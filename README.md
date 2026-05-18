@@ -105,7 +105,7 @@ flowchart LR
     A([Operator Voice Input]) -->|Raw Audio| B[Whisper Speech-To-Text]
     B -->|Jargon Prompt Priming| C[Clean Transcribed Text]
     
-    subgraph Two_Pass["Two-Pass Extraction Engine (High-Complexity)"]
+    subgraph Two_Pass["Two-Pass Extraction Engine"]
         C --> D[Pass 1: Chronological timeline Ingestion]
         D -->|Diagnostic Noise Filtered| E[Pass 2: JSON Structure & Entity extraction]
     end
