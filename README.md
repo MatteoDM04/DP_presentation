@@ -60,4 +60,159 @@ Probably the most important lesson learned is that CONTEXT IS KING, but so diffi
 Second lesson: Hybrid engineering beats pure AI. We learned that relying solely on deep learning or pattenr matching is a recipe for failure. By stacking multiple methods together, it is possible to create actual robust engines that none of these systems could have achieved on their own. 
 
 
+# Presentation Visuals
+
+Here are the upgraded, PowerPoint-optimized **widescreen (16:9)** Mermaid diagrams. These have been designed with a horizontal left-to-right flow (`flowchart LR`) or balanced split grids so they fit beautifully on slide templates without looking squished or requiring vertical scrolling.
+
+---
+
+## Slide 1: Technical Challenges Overview
+A left-to-right split architecture showcasing the two parallel pillars of your system connected to a shared database.
+
+```mermaid
+flowchart LR
+    subgraph Storage_Pipeline["Solution Storage Pipeline (Left Wing)"]
+        A([Voice / Text Input]) --> B[Whisper STT Decoder]
+        B --> C[Two-Pass Extraction Engine]
+        C --> D[Admin Review Queue]
+    end
+
+    subgraph Knowledge_Base["Knowledge Base (Center DB)"]
+        E[(Verified Solutions & manuals)]
+    end
+
+    subgraph Chat_Agent["Conversational Chatbot (Right Wing)"]
+        F([Operator Query]) --> G[Agent Reasoning]
+        G --> H{Confidence Scorer}
+        H --> I[Technical Answer / Fallback]
+    end
+
+    D -->|Supervisor Approved| E
+    E -.->|RAG Retrieval| G
+    
+    style Storage_Pipeline fill:#f4f4f4,stroke:#333,stroke-width:2px
+    style Knowledge_Base fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
+    style Chat_Agent fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+```
+
+---
+
+## Slide 2: Challenge 1 - Solution Storage & Extraction Pipeline
+A sleek horizontal timeline detailing the three extraction stages, Jargon priming, and supervisor gating.
+
+```mermaid
+flowchart LR
+    A([Operator Voice Input]) -->|Raw Audio| B[Whisper Speech-To-Text]
+    B -->|Jargon Prompt Priming| C[Clean Transcribed Text]
+    
+    subgraph Two_Pass["Two-Pass Extraction Engine (High-Complexity)"]
+        C --> D[Pass 1: Chronological timeline Ingestion]
+        D -->|Diagnostic Noise Filtered| E[Pass 2: JSON Structure & Entity extraction]
+    end
+    
+    E --> F[Pending Review Queue]
+    F -->|Supervisor Approved| G[(Main Database + 3D Models / Images)]
+    
+    style Two_Pass fill:#fffacd,stroke:#8a6d3b,stroke-width:2px
+    style G fill:#dff0d8,stroke:#3c763d,stroke-width:2px
+```
+
+---
+
+## Slide 3: Challenge 2 - Dialect & Semantic Similarity
+A widescreen flow diagram showing the parallel Sentence Transformer vector math check and the Two-Pass Action Dictionary check working in tandem.
+
+```mermaid
+flowchart TD
+    subgraph Input_Jargon["Different Spoken Dialects"]
+        A["Operator A: 'Swapped container of the buggy'"]
+        B["Operator B: 'Replaced buggy container'"]
+    end
+
+    subgraph Dual_Check["Hybrid Semantic Matcher (Widescreen Parallel Pipeline)"]
+        C{{"Deep Learning (all-MiniLM-L6-v2)"}} -->|1. Raw Text Cosine Similarity| E[sim_raw]
+        D{{"Two-Pass Entity Matcher"}} -->|2. Structured Pattern Similarity| F[sim_pat]
+    end
+
+    A & B --> C
+    A & B --> D
+    
+    E & F --> G[Max-Score Selector: max]
+    G --> H[Apply Power Scaling: max ** 0.5]
+    H -->|Result >= 80%| I[[Flag Duplicate / Map to Stored Solution]]
+
+    style Dual_Check fill:#f5f5f5,stroke:#333,stroke-width:2px
+    style I fill:#dff0d8,stroke:#3c763d,stroke-width:3px
+```
+
+---
+
+## Slide 4: Challenge 3 - RAG & Agentic Tool Use
+A hub-and-spoke layout showing the AI Agent dynamically choosing between tools to construct a clean context.
+
+```mermaid
+flowchart LR
+    A([User Query]) --> B[Chatbot Agent Reasoning]
+    
+    subgraph Tool_Chest["Dynamic Tool Dispatcher"]
+        B -->|Tool Choice 1| C[[RAG Search]]
+        B -->|Tool Choice 2| D[[System Log Fetcher]]
+        B -->|Tool Choice 3| E[[Deeper Thinking Mode]]
+    end
+    
+    C --> F[(PDF Manuals & Solutions)]
+    D --> G[(Live Machine logs)]
+    E --> H[Multi-Step Diagnostic logic]
+    
+    F & G & H --> I[Context Synthesizer]
+    I --> J[Proceed to Confidence Engine]
+    
+    style Tool_Chest fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+```
+
+---
+
+## Slide 5: Challenge 4 - Chatbot Confidence & Fallbacks
+A horizontal flow diagram showing how you avoid false refusals and decouple global history to eliminate ghost confidence.
+
+```mermaid
+flowchart LR
+    A[RAG Context + Current Query] -->|Decoupled from Global History| B{Confidence Scorer}
+    
+    B -->|Confidence >= 25%| C[High Confidence response]
+    B -->|Confidence < 25%| D{Low Confidence Analyzer}
+    
+    C --> E[Output Technical Answer]
+    
+    D -->|Off-Topic Query| F[Block & Refuse]
+    D -->|Valid but Vague Query| G[Domain-Specific Fallback: Ask for context]
+    
+    G -.->|User Refines Query| A
+    
+    style B fill:#f96,stroke:#333,stroke-width:3px
+    style G fill:#fffacd,stroke:#8a6d3b,stroke-width:2px
+    style F fill:#f99,stroke:#a94442,stroke-width:2px
+```
+
+---
+
+## Slide 6: Top 5 Lessons Learned
+A horizontal countdown sequence showing how your lessons flow together to build a robust system.
+
+```mermaid
+flowchart LR
+    subgraph Lessons["Top 5 Lessons Learned (Countdown Sequence)"]
+        L5["5. Messy Data (Jargon Priming)"] -->
+        L4["4. Human review Guardrails"] -->
+        L3["3. Graceful degradation Fallbacks"] -->
+        L2["2. Hybrid beats Pure AI"] -->
+        L1["1. Context is King (Decoupling)"]
+    end
+    
+    style Lessons fill:#fafafa,stroke:#333,stroke-width:2px
+    style L1 fill:#dff0d8,stroke:#3c763d,stroke-width:3px
+```
+
+
+
 
