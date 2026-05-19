@@ -2,7 +2,6 @@
 
 
 ## Slide 1: Technical challenges
-**Visual Suggestion:** A high-level schematic showing the two main pillars of the system: The **Solution Storage Pipeline** on the left (with icons for voice/text input flowing into a database) and the **Industrial Chatbot** on the right (with an icon of an operator interacting with the AI).
 
 **Spoken Text:**
 "Now I'm going to walk you through the technical challenges that we faced. There are 3 big components to our project. I will first talk about the solution storage where operators can document a solution to a machine issue that they fixed and the chatbot where operators can ask all kinds of different information about the machines to help them diagnose issues faster. Afterwards, Senne will walk you through the challenges of our preventive maintenance component. 
@@ -10,11 +9,6 @@
 ---
 
 ## Slide 2: Challenge 1 - Solution Storage & Information Extraction
-**Visual Suggestion:** A step-by-step pipeline diagram.
-1. Raw Input (Voice/Text) -> 
-2. "Two-Pass Extraction Engine" (Highlight this as the complex part) -> 
-3. "Admin Review Queue" -> 
-4. Knowledge Base.
 
 **Spoken Text:**
 "Let's start with Solution Storage. Our first challenge was converting raw voice input into text. While we used the OpenAI Whisper platform for basic speech-to-text, this is too general and not good enough for a noisy industrial setting. Using the basic Whisper, domain jargon would often be transcribed wrong. We solved this by first loading a custom Jargon Prompt that acts as a cheat sheet for Whisper's transcription, helping it to recognize specific industrial terminology like machine names and components. 
@@ -28,19 +22,18 @@ Lastly, because we couldn't just dump AI-extracted solutions directly into the d
 ---
 
 ## Slide 3: Challenge 2 - Dialect & Semantic Similarity
-**Visual Suggestion:** A diagram showing two different operator quotes: Operator A: "Swapped the container buggy" and Operator B: "Replaced buggy container". Both point to Vector Embeddings that cluster together in Semantic Space, resulting in a "High Cosine Similarity Score (92%)".
+
 **Spoken Text:**
 A second big challenge in this component was handling the different dialects and wordings. If one operator explains a fix as 'Swapped the container of the buggy' and another says 'Replaced buggy container', then keyword matching would fail. We solved this by building a Hybrid system where we use a deep learning model called Sentence Transformers that converts the raw text into vector embeddings and calculates the Cosine Similarity based on concept and meaning. This naturally maps synonyms and dialects close together. However, the problem with this is that sentence structures in solutions can become so different that the comparison score can drop a lot. This is why we run a parallel check using our Two-Pass Extraction architecture. Here, different words like 'swap', 'replace', 'change' get mapped to the same action. The weakness of this second part is that new slang words that are not in the dictionary might fail to get extracted. But by combining it with the deep learning brain of Sentence Transformers and calculating both scores, we can get highly accurate similarity matching that understand the sentence context while simultaneously stripping away all unneccesary noise.
 
 ## Slide 4: Challenge 3 - RAG Pipelines and Agentic Tool Use
-**Visual Suggestion:** A diagram showing the "Chatbot Agent" in the center, with arrows pointing to different "Tools" it can use: [Knowledge Base (RAG)], [System Error Logs], and [Thinking Mode].
+
 
 **Spoken Text:**
 "Moving over to the Chatbot, the main technical difficulty here was that it isn't just a static conversational model. It acts as an intelligent agent. To ensure accuracy and to prevent AI hallucinations, we built a robust RAG pipeline. Instead of relying on the LLM's reasoning, we engineered it to actively retrieve verified solutions and machine manuals from our database. The true complexity here lies in the tool use. The chatbot dynamically decides when to execute a database search, when to look for previously stored solutions or when to activate a deeper "Thinking mode" for complex diagnostics. Getting the LLM to consistently use the right tools was a complex task and required careful prompt engineering to prevent the agent from hallucinating or getting stuck in loops. This paired with the live gathering of error logs, filtering out hundreds of unhelpfull information logs makes this a very complex component.
 
 ---
-## Slide 5: Challenge 4 - Chatbot Confidence and Fallbacks
-**Visual Suggestion:** A flowchart showing the Confidence Scorer deciding between a "High Confidence Response" and a "Domain-Specific Fallback (Ask for Context)".
+
 
 **Spoken Text:**
 "Even with RAG and tools, the AI sometimes fails to find a perfect match. Another big challenge was getting the chatbot to know when it *didn't* know the answer. We had to avoid two dangerous extremes of 'ghost confidence' and 'false refusals'.
