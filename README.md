@@ -5,7 +5,7 @@
 **Visual Suggestion:** A high-level schematic showing the two main pillars of the system: The **Solution Storage Pipeline** on the left (with icons for voice/text input flowing into a database) and the **Industrial Chatbot** on the right (with an icon of an operator interacting with the AI).
 
 **Spoken Text:**
-"Now I'm going to walk you through the technical challenges of our project. There are 3 big components to our project. I will first talk about the solution storage where operators can document a solution to a machine issue that they fixed and the chatbot where operators can ask all kinds of different information about the machines to help them diagnose issues faster. Afterwards, Senne will walk you through the challenges of our preventive maintenance component. 
+"Now I'm going to walk you through the technical challenges that we faced. There are 3 big components to our project. I will first talk about the solution storage where operators can document a solution to a machine issue that they fixed and the chatbot where operators can ask all kinds of different information about the machines to help them diagnose issues faster. Afterwards, Senne will walk you through the challenges of our preventive maintenance component. 
 
 ---
 
