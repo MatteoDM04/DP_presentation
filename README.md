@@ -4,7 +4,7 @@
 ## Slide 1: Technical challenges
 
 **Spoken Text:**
-"Now I'm going to walk you through the technical challenges that we faced. There are 3 big components to our project. I will first talk about the solution storage where operators can document a solution to a machine issue that they fixed and the chatbot where operators can ask all kinds of different information about the machines to help them diagnose issues faster. Afterwards, Senne will walk you through the challenges of our preventive maintenance component. 
+"Now I'm going to walk you through the technical challenges that we faced. There are 3 big components to our project. I will first talk about the solution storage where operators can document a solution to a machine issue that they fixed using voice or text and then the industrial chatbot where operators can ask all kinds of different questions about the machines to help them diagnose issues faster. Afterwards, Senne will walk you through the challenges of our preventive maintenance component. 
 
 ---
 
