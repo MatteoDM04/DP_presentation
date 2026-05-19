@@ -39,7 +39,7 @@ A second big challenge in this component was handling the different dialects and
 "Even with RAG and tools, the AI sometimes fails to find a perfect match. Another big challenge was getting the chatbot to know when it *didn't* know the answer. We had to avoid two dangerous extremes of 'ghost confidence' and 'false refusals'.
 Firstly, standard LLM's tend to carry over confidence from previous questions. This 'ghost confidence' can lead to the AI to confidently double down on wrong answers. We avoided this by decoupling the confidence scores from chat history and strictly basing them on the current query and the actual retrieved RAG data and tools used. 
 Secondly, we had to prevent 'false refusals'. We had to differentiate: Is the operator asking an off-topic question, or are they asking a valid machine question that simply lacks database documentation?
-We solved this by developing a multi-layered confidence algorithm. Instead of a flat refusal, it blocks off-topic queries, penalizes vague questions and guides the operator to provide more specific machine context to refine the next RAG search. 
+We solved this by developing a multi-layered confidence algorithm. Instead of a flat refusal, it blocks off-topic queries, penalizes vague questions and guides the operator to provide more specific machine information to improve the next RAG search. 
 
 "
 ---
